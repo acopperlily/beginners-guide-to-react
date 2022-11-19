@@ -6,22 +6,21 @@
   <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
   <script type="text/babel">
     const rootElement = document.getElementById('root');
-
-    function SayHello({firstName, lastName}) {
-      return (
+    
+    function tick() {
+      const time = new Date().toLocaleTimeString();
+      const element = (
         <div>
-          Hello {firstName} {lastName}!
+          <input value={time} />
+          <input value={time} />
         </div>
-      )
+      );
+
+      ReactDOM.render(element, rootElement);
     }
 
-    SayHello.propTypes = {
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired,
-    };
-
-    const element = <SayHello firstName={false} />
-
-    ReactDOM.render(element, rootElement);
+    tick();
+    setInterval(tick, 1000);
+    
   </script>
 </body>

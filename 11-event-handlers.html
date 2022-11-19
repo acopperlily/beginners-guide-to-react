@@ -6,15 +6,16 @@
   <script type="text/babel">
     const rootElement = document.getElementById('root')
 
-    const state = {eventCount: 0, username: ''}
+    const state = {eventCount: 0, username: ''};
 
     function App() {
       function handleClick() {
-        setState({eventCount: state.eventCount + 1})
+        setState({eventCount: state.eventCount + 1});
       }
 
       function handleChange(event) {
-        setState({username: event.target.value})
+        console.log(event.nativeEvent);
+        setState({username: event.target.value});
       }
 
       return (
@@ -32,14 +33,15 @@
     }
 
     function setState(newState) {
-      Object.assign(state, newState)
+      Object.assign(state, newState);
       renderApp()
     }
 
     function renderApp() {
-      ReactDOM.render(<App />, document.getElementById('root'))
+      ReactDOM.render(<App />, rootElement);
     }
 
-    renderApp()
+    renderApp();
+
   </script>
 </body>
