@@ -7,11 +7,12 @@
     function Greeting() {
       const [name, setName] = React.useState(
         () => window.localStorage.getItem('name') || '',
-      )
+      );
 
       React.useEffect(() => {
+        console.log('greeting useEffect');
         window.localStorage.setItem('name', name)
-      }, [name])
+      }, []);
 
       const handleChange = event => setName(event.target.value)
 
