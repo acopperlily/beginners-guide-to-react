@@ -5,10 +5,12 @@
   <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
   <script type="text/babel">
     function UsernameForm() {
+
       function handleSubmit(event) {
-        event.preventDefault()
-        const username = event.target.elements.usernameInput.value
-        alert(`You entered: ${username}`)
+        event.preventDefault();
+        console.dir(event.target);
+        const username = event.target.elements.usernameInput.value;
+        alert(`You entered: ${username}`);
       }
 
       return (
@@ -19,7 +21,7 @@
           </div>
           <button type="submit">Submit</button>
         </form>
-      )
+      );
     }
 
     ReactDOM.render(<UsernameForm />, document.getElementById('root'))
