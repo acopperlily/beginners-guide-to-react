@@ -5,26 +5,42 @@
   <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
   <script type="text/babel">
     function PokemonInfo({pokemonName}) {
-      const [pokemon, setPokemon] = React.useState(null)
+      const [status, setStatus] = React.useState('idle');
+      const [pokemon, setPokemon] = React.useState(null);
+      const [error, setError] = React.useState(null);
 
       React.useEffect(() => {
         if (!pokemonName) {
-          return
+          return;
         }
-        fetchPokemon(pokemonName).then(pokemonData => {
-          setPokemon(pokemonData)
-        })
-      }, [pokemonName])
+        setStatus('pending');
+        fetchPokemon(pokemonName).then(
+          pokemonData => {
+            setStatus('resolved');
+            setPokemon(pokemonData);
+          },
+          errorData => {
+            setStatus('rejected');
+            setError(errorData);
+          }
+        )
+      }, [pokemonName]);
 
-      if (!pokemonName) {
-        return 'Submit a pokemon'
+      if (status === 'idle') {
+        return 'Submit a pokemon';
       }
 
-      if (!pokemon) {
-        return '...'
+      if (status === 'rejected') {
+        return 'Oh no...';
       }
 
-      return <pre>{JSON.stringify(pokemon, null, 2)}</pre>
+      if (status === 'pending') {
+        return '...';
+      }
+
+      if (status === 'resolved') {
+        return <pre>{JSON.stringify(pokemon, null, 2)}</pre>
+      }
     }
 
     function App() {
